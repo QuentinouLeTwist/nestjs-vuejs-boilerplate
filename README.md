@@ -5,13 +5,13 @@ Useful to start a new app without carrying of implementing features like user au
 
 Free to use, to clone, to fork, to evolve, to do anything you want.
 
-# Backend
+# Backend with [NestJS](https://github.com/nestjs/nest)
 - [x] A starter API (with User)
 - [x] MYSQL - Typeorm
 - [x] User Password Hash/Compare
 - [x] Authentication JWT Token
 
-# UI
+# UI with [VueJS](https://github.com/vuejs/vue)
 - [ ] Login Form
 - [ ] Profile Page
 
