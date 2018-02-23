@@ -12,13 +12,14 @@ Free to use, to clone, to fork, to evolve, to do anything you want.
 - [x] Authentication JWT Token
 
 # UI
-- [] Login Form
-- [] Profile Page
+- [ ] Login Form
+- [ ] Profile Page
 
 More features will be added.
 
 # Docker
-- [] Mysql
 I used a docker-compose file in order to let you compose with other services (like redis) if needed.
+
+- [x] Mysql
 
 
