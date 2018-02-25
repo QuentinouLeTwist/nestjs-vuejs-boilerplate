@@ -1,5 +1,5 @@
 import { LoginValidationPipe } from './pipe/login-validation.pipe';
-import { UserService } from './../api/user/user.service';
+import { UserRepository } from './../api/user/user.repository';
 import { Controller, Post, HttpStatus, HttpCode, Get, Req, Inject, Body, BadRequestException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { PasswordEncrypterService } from '../../utils/encryption/password-encrypter.service';
@@ -9,7 +9,7 @@ import { User } from '../api/user/user.entity';
 export class AuthController {
   constructor(
     private readonly authService: AuthService, 
-    private readonly userService: UserService,
+    private readonly userRepository: UserRepository,
     private readonly passwordEncrypter: PasswordEncrypterService
   ) {}
 
@@ -29,10 +29,10 @@ export class AuthController {
 
   private fetchUser(credentials: any) {
     if ('email' in credentials) {
-      return this.userService.findByEmail(credentials.email);
+      return this.userRepository.findByEmail(credentials.email);
     }
     if ('username' in credentials) {
-      return this.userService.findByUsername(credentials.username);
+      return this.userRepository.findByUsername(credentials.username);
     }
   }
 }
