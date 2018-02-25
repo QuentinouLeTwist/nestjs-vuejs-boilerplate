@@ -16,7 +16,7 @@ export class UserManager {
   }
 
   async getOne(userId: number) {
-    const user = await this.userRepository.findOne(userId);
+    const user = await this.userRepository.findOneById(userId);
     delete user.password;
     
     return user;
@@ -37,6 +37,6 @@ export class UserManager {
   }
 
   async removeUser(userId: number) {
-    return await this.userRepository.remove(await this.userRepository.findOne(userId));
+    return await this.userRepository.remove(await this.userRepository.findOneById(userId));
   }
 }
