@@ -1,7 +1,7 @@
 export interface ApiResourceInterface {
-    findAll();
-    findOne(params: any);
-    create(req: Request);
-    remove(params: any);
-    update(params: any);
+    getAll();
+    getOne(request: any);
+    create(reques: any);
+    remove(request: any);
+    update(request: any);
 }
