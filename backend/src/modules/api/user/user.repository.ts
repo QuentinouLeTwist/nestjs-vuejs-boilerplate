@@ -1,12 +1,11 @@
-import { Entity } from 'typeorm';
-import { Component, Inject } from '@nestjs/common';
+import { PasswordEncrypterService } from './../../../utils/encryption/password-encrypter.service';
+import { Component } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getConnection } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from './user.entity';
-import { PasswordEncrypterService } from '../../../utils/encryption/password-encrypter.service';
 
 @Component()
-export class UserService {
+export class UserRepository {
   constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
 
   async findAll(): Promise<User[]> {
@@ -33,13 +32,19 @@ export class UserService {
     .getOne();
   }
 
-  /*
-  create(body: {}): {
-    /*
-    if (body.encrypted === '') {
-      return await this.passwordEncrypter.hash(body.password);
-    }
-    return await this.passwordEncrypter.verify(body.password, body.encrypted);
+  async removeById(userId: number) {
+    await this.userRepository.remove(await this.findOne(userId));
   }
-    */
+
+  async create(user: User) {
+    await this.userRepository.save(user);
+  }
+
+  async remove(user: User) {
+    await this.userRepository.remove(user);
+  }
+
+  async update(user: User) {
+    await this.userRepository.save(user);
+  }
 }
