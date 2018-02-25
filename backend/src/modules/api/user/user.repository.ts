@@ -1,50 +1,35 @@
 import { PasswordEncrypterService } from './../../../utils/encryption/password-encrypter.service';
 import { Component } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, EntityRepository } from 'typeorm';
 import { User } from './user.entity';
 
-@Component()
-export class UserRepository {
-  constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
+@EntityRepository(User)
+export class UserRepository extends Repository<User> {
 
   async findAll(): Promise<User[]> {
-    return await this.userRepository.find();
-  }
-
-  async findOne(id: number): Promise<User> {
-    return await this.userRepository.findOneById(id);
+    return await this.find();
   }
 
   async findByUsername(username: string): Promise<User> {
-    return await this.userRepository
-      .createQueryBuilder()
+    return await this.createQueryBuilder()
       .select()
       .where('username = :username', {username})
       .getOne();
   }
 
   async findByEmail(email: string): Promise<User> {
-    return await this.userRepository
-    .createQueryBuilder()
+    return await this.createQueryBuilder()
     .select()
     .where('email = :email', {email})
     .getOne();
   }
 
   async removeById(userId: number) {
-    await this.userRepository.remove(await this.findOne(userId));
-  }
-
-  async create(user: User) {
-    await this.userRepository.save(user);
-  }
-
-  async remove(user: User) {
-    await this.userRepository.remove(user);
+    await this.remove(await this.findOneById(userId));
   }
 
   async update(user: User) {
-    await this.userRepository.save(user);
+    await this.save(user);
   }
 }
